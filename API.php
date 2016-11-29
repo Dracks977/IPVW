@@ -44,7 +44,7 @@ function put_iptables(){
 	 if (isset($_GET["ip"]) AND isset($_GET["port_int"]) AND isset($_GET["port_ext"])){
 	    // pas les droit d'ecriture ....
 	       // "sudo iptables -A PREROUTING -t nat -i tun0 -p tcp -m tcp --dport " . $_GET["port_ext"] . " -j DNAT --to-destination " . $_GET["ip"] . ":" . $_GET["port_int"]
-	       	  echo shell_exec("sudo -u root -S iptables -A PREROUTING -t nat -i tun0 -p tcp -m tcp --dport ".$_GET["port_ext"]."  -j DNAT --to-destination ".$_GET["ip"].":".$_GET["port_int"]." < /home/mind7/pass;");
+	       	  echo shell_exec("sudo -u root -S iptables -A PREROUTING -t nat -i tun0 -p tcp -m tcp --dport ".$_GET["port_ext"]."  -j DNAT --to-destination ".$_GET["ip"].":".$_GET["port_int"]." < /home/[USER]/pass;");
 		  }
 		  else
 		  return "Bad parammeters, use ?action=put_iptables&ip=[IP]&port_int=[local port]&port_ext=[Gateway port]";
