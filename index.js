@@ -16,11 +16,11 @@ io.on('connection', function(socket){
 	socket.on('needip', function(data){
 		console.log("new ip search from :" + socket.request.connection.remoteAddress + " >>>>> " + data);
 		if (data == "Krypton")
-			var res = request('GET', 'http://192.168.0.1/?action=get_info');
+			var res = request('GET', 'http://0.0.0.0/?action=get_info');
 		else if  (data == "Neon")
-			var res = request('GET', 'http://neon.lan:80/?action=get_info');
+			var res = request('GET', 'http://0.0.0.0/?action=get_info');
 		else
-			var res = request('GET', 'http://argon.lan:80/?action=get_info');
+			var res = request('GET', 'http://0.0.0.0/?action=get_info');
 		res = JSON.parse(res.getBody('utf8'));
 		socket.emit('ip_result', res);
 	});
