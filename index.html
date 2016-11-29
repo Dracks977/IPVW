@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>IPVW</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">IPVW</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="clickclick" id="k" href="#">Krypton</a></li>
+        <li><a class="clickclick" id="n" href="#">Neon</a></li>
+        <li><a class="clickclick" id="a" href="#">Argon</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a class="clickclick" href="#">Krypton</a></li>
+        <li><a class="clickclick" href="#">Neon</a></li>
+        <li><a class="clickclick" href="#">Argon</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 id="title" class="header center light-blue-text">IP-Viewer</h1>
+      <div class="row center">
+        <h5 class="header col s12 light"></h5>
+      </div>
+      <div class="row center">
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m12">
+         <table class="bordered responsive-table centered">
+          <thead>
+            <tr>
+              <th data-field="id">Ip Interne</th>
+              <th data-field="name">Port Interne</th>
+              <th data-field="price">Port Externe</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <hr>
+  <br>
+  <div class="section">
+
+    <!--   Icon Section   -->
+    <div class="row">
+      <div class="col s12 m12">
+        <h5 class="center light-blue-text">Ajouter une redirection NAT</h5>
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s3">
+             <input id="IP1" type="text" class="validate">
+             <label for="last_name">Ip Interne</label>
+           </div>
+           <div class="input-field col s3">
+             <input id="p1" type="text" class="validate">
+             <label for="last_name">Port Interne</label>
+           </div>
+           <div class="input-field col s3">
+             <input id="p2" type="text" class="validate">
+             <label for="last_name">Port Externe</label>
+           </div>
+           <div class="center col s3">
+             <input style="margin-top: 31px;" class="waves-effect waves-light blue btn center valign " type=submit value="Modifier"/>
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>
+
+</div>
+<br><br>
+
+<div class="section">
+
+</div>
+</div>
+
+<footer class="page-footer blue">
+  <div class="container">
+    <div class="row">
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      Made by <a class=" indigo-text accent-4-text" href="https://github.com/Dracks977">Van hemelryck Nathan</a>
+    </div>
+  </div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="static/js/materialize.js"></script>
+<script src="static/js/init.js"></script>
+<script type="text/javascript">
+  var socket = io();
+  $( document ).ready(function() {
+    $('#title').text("krypton");
+    $('title').text("krypton");
+    $('#k').css('background-color','rgba(0, 0, 0, 0.1)');
+    socket.emit("needip", "krypton");
+    socket.on('ip_result', function(data){
+      $('tbody').empty();
+      for (var i in data)
+        $('tbody').append("<tr><td>"+data[i]['ip']+"</td><td>"+data[i]['port_int']+"</td><td>"+data[i]['port_ext']+"</td></tr>");
+    });
+    $('.clickclick').click(function(){
+      $('.clickclick').css('background-color','rgba(0, 0, 0, 0)');
+      $(this).css('background-color','rgba(0, 0, 0, 0.1)');
+        socket.emit("needip", $(this).text());
+         $('title').text($(this).text());
+        $('#title').text($(this).text());
+    });
+  });
+</script>
+</body>
+</html>
+
